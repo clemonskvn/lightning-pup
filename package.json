@@ -18,10 +18,10 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com"
+    "url": "https://github.com/clemonskvn/lightning-pup.git"
   },
   "bugs": {
-    "url": "http://github.com",
+    "url": "https://github.com/clemonskvn/lightning-pup/issues",
     "email": "issues@lightningpup.com"
   },
   "dependencies": {
