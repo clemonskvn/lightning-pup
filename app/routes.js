@@ -2,6 +2,8 @@
 
 // grab the nerd model we just created
 //var Premise = require('./models/premise');
+var user    = require('./models/user');
+var addr    = require('./models/address');
 
 var express = require('express');
 var jwt = require('express-jwt');
@@ -25,16 +27,44 @@ var jwtCheck = jwt({
 		app.get('/api', function(req, res) {
 			res.json({ message: 'welcome to our api!' });
 		});
-
-/*		app.get('/api/bears/:bear_id', function(req, res) {
-			Bear.findById(req.params.bear_id, function(err, bear) {
+        
+        app.get('/api/user/:user_id', function(req, res) {
+			user.findById(req.params.user_id, function(err, myUser) {
 				if (err)
 					res.send(err);
-				res.json(bear);
+				res.json(myUser);
 			});
-		});*/
+		});
 
 		// posts go here ============================================
+        app.post('/api/user', function(req, res) {
+            var myUser      = new user();
+            var myAddress   = new addr();
+            myAddress.street    = req.body.street;
+            myAddress.city      = req.body.city;
+            myAddress.state     = req.body.state;
+            myAddress.zipcode   = req.body.zipcode;
+            myAddress.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'Address created!' });
+            });
+            
+            myUser.userId       = req.body.user_id;
+            myUser.firstName    = req.body.first_name;
+            myUser.middleInitial= req.body.middle_initial;
+            myUser.lastName     = req.body.last_name;
+            myUser.email        = req.body.email;
+            myUser.phone        = req.body.phone;
+            myUser.address      = myAddress;
+            myUser.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'User created!' });
+            });
+            
+        });
+        
 /*        app.post('/api/premise', function(req, res) {
 			var premise = new Premise();
 			premise.premise_id = req.body.premise_id;
