@@ -1,7 +1,7 @@
 node_modules
 bower_components
 public/libs
-public/dist/*.min.*
+public/dist/*.min*
 trash
 *.log
 *.tmp

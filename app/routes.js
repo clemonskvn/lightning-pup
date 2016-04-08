@@ -2,16 +2,16 @@
 
 // grab the nerd model we just created
 //var Premise = require('./models/premise');
-var user    = require('./models/user');
-var addr    = require('./models/address');
+var User = require('./models/user');
+var Addr = require('./models/address');
 
 var express = require('express');
-var jwt = require('express-jwt');
+/*var jwt = require('express-jwt');
 
 var jwtCheck = jwt({
   secret: new Buffer('nvC5GxMy28oxaQO9JmxIsRgLBJdaDs5GjdcyI0PzzmaaZKtqnANgnWUylk9JSG9q', 'base64'),
   audience: 'fxrksgu1aOqhoN0SqGLMZyAG3fFuPMNM'
-});
+});*/
 
 	module.exports = function(app) {
 		// server routes ===========================================================
@@ -38,31 +38,18 @@ var jwtCheck = jwt({
 
 		// posts go here ============================================
         app.post('/api/user', function(req, res) {
-            var myUser      = new user();
-            var myAddress   = new addr();
-            myAddress.street    = req.body.street;
-            myAddress.city      = req.body.city;
-            myAddress.state     = req.body.state;
-            myAddress.zipcode   = req.body.zipcode;
-            myAddress.save(function(err) {
-                if (err)
-                    res.send(err);
-                res.json({ message: 'Address created!' });
-            });
-            
+            var myUser      = new User();
             myUser.userId       = req.body.user_id;
             myUser.firstName    = req.body.first_name;
             myUser.middleInitial= req.body.middle_initial;
             myUser.lastName     = req.body.last_name;
             myUser.email        = req.body.email;
             myUser.phone        = req.body.phone;
-            myUser.address      = myAddress;
             myUser.save(function(err) {
                 if (err)
                     res.send(err);
                 res.json({ message: 'User created!' });
             });
-            
         });
         
 /*        app.post('/api/premise', function(req, res) {
