@@ -3,7 +3,6 @@
 // grab the nerd model we just created
 //var Premise = require('./models/premise');
 var User = require('./models/user');
-var Addr = require('./models/address');
 
 var express = require('express');
 /*var jwt = require('express-jwt');
@@ -38,33 +37,50 @@ var jwtCheck = jwt({
 
 		// posts go here ============================================
         app.post('/api/user', function(req, res) {
-            var myUser      = new User();
+            var user_id = req.body.user_id,
+                first_name = req.body.first_name,
+                middle_initial = req.body.middle_initial,
+                last_name = req.body.last_name;
+            
+            var myUser      = new User({
+                userId: user_id,
+                userName: {
+                    firstName: first_name,
+                    middleInitial: middle_initial,
+                    lastName: last_name
+                }
+            });
+            /*
             myUser.userId       = req.body.user_id;
-            myUser.firstName    = req.body.first_name;
-            myUser.middleInitial= req.body.middle_initial;
-            myUser.lastName     = req.body.last_name;
-            myUser.email        = req.body.email;
-            myUser.phone        = req.body.phone;
+            
+            myUser.userName.push({
+                fistName        : req.body.first_name,
+                middleInitial   : req.body.middle_initial,
+                lastName        : req.body.last_name
+            });
+            
+            myUser.email.push({
+                type            : req.body.email_type,
+                emailAddress    : req.body.email
+            });
+            
+            myUser.phone.push({
+                type            : req.body.phone_type,
+                telNumber       : req.body.tel_number
+            });
+            
+            myUser.address.push({
+                street          : req.body.street,
+                city            : req.body.city,
+                state           : req.body.state,
+                zipcode         : req.body.zipcode});
+            */
             myUser.save(function(err) {
                 if (err)
                     res.send(err);
                 res.json({ message: 'User created!' });
             });
         });
-        
-/*        app.post('/api/premise', function(req, res) {
-			var premise = new Premise();
-			premise.premise_id = req.body.premise_id;
-            premise.name = req.body.name;
-            premise.address = req.body.address;
-            premise.meter_id = req.body.meter_id;
-			
-			premise.save(function(err) {
-				if (err)
-					res.send(err);
-				res.json({ message: 'Premise created!' });
-			});
-		});*/
 
 		// puts go here =============================================
 /*		app.put('/api/bears/:bear_id', function(req, res) {
@@ -81,6 +97,19 @@ var jwtCheck = jwt({
 		});*/
 
 		// deletes go here ==========================================
+        app.delete('/api/user/:user_id', function(req, res) {
+            User.findById(req.params.user_id, function(err, myUser) {
+                if (err)
+                    res.send(err);
+                myUser.deleteIndicator = 'X';
+                myUser.save(function(err) {
+                    if (err)
+                        res.send(err);
+                    res.json({ message: 'User deleted!' });
+                })
+            })
+        })
+        
 /*		app.delete('/api/bears/:bear_id', function(req, res) {
 			Bear.remove({
 				_id: req.params.bear_id
