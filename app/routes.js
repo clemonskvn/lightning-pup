@@ -28,7 +28,7 @@ var jwtCheck = jwt({
 		});
         
         app.get('/api/user/:user_id', function(req, res) {
-			user.findById(req.params.user_id, function(err, myUser) {
+			User.findById(req.params.user_id, function(err, myUser) {
 				if (err)
 					res.send(err);
 				res.json(myUser);
@@ -40,41 +40,41 @@ var jwtCheck = jwt({
             var user_id = req.body.user_id,
                 first_name = req.body.first_name,
                 middle_initial = req.body.middle_initial,
-                last_name = req.body.last_name;
+                last_name = req.body.last_name,
+                email = req.body.email,
+                email_type = 'PRIMARY',
+                user_type = 'PRIMARY',
+                phone_type = req.body.phone_type,
+                phone = req.body.tel_number,
+                street = req.body.street,
+                city = req.body.city,
+                state = req.body.state,
+                zipcode = req.body.zipcode;
             
             var myUser      = new User({
                 userId: user_id,
                 userName: {
                     firstName: first_name,
                     middleInitial: middle_initial,
-                    lastName: last_name
+                    lastName: last_name,
+                    type: user_type
+                },
+                email: {
+                    type: email_type,
+                    emailAddress: email
+                },
+                phone: {
+                    type: phone_type,
+                    telNumber: phone
+                },
+                address: {
+                    street: street,
+                    city: city,
+                    state: state,
+                    zipcode: zipcode
                 }
             });
-            /*
-            myUser.userId       = req.body.user_id;
             
-            myUser.userName.push({
-                fistName        : req.body.first_name,
-                middleInitial   : req.body.middle_initial,
-                lastName        : req.body.last_name
-            });
-            
-            myUser.email.push({
-                type            : req.body.email_type,
-                emailAddress    : req.body.email
-            });
-            
-            myUser.phone.push({
-                type            : req.body.phone_type,
-                telNumber       : req.body.tel_number
-            });
-            
-            myUser.address.push({
-                street          : req.body.street,
-                city            : req.body.city,
-                state           : req.body.state,
-                zipcode         : req.body.zipcode});
-            */
             myUser.save(function(err) {
                 if (err)
                     res.send(err);
