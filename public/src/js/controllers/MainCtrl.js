@@ -5,14 +5,14 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', function(
     $scope.user = 'test';
     $scope.pass = '123';
     
-    $("submit").click(function() {
+    /*$("submit").click(function() {
         $.post("http://localhost:8080/api/user", {user: $scope.user, password: $scope.pass}, function(data) {
             if(data === 'done')
                 {
                     alert("login success");
                 }
         });
-    });
+    });*/
     
 
 }]);

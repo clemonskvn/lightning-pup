@@ -1,52 +1,118 @@
 <!-- public/views/userdetails.html -->
 <div class="text-left" style="padding:2em;">
 	<h1>My Profile</h1>
-	<form>
+	<form id="newUserForm" action="/api/user" method="post" enctype="application/x-www-form-urlencoded">
         <div class="form-group row">
             <label for="inputName" class="col-sm-2 form-control-label">Name</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputName" placeholder="first">
+                <input type="text" class="form-control" id="first_name" placeholder="first" name="first_name">
             </div>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="inputMiddleInitial">
+                <input type="text" class="form-control" id="inputMiddleInitial" name="middle_initial">
             </div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputLastName" placeholder="last">
+                <input type="text" class="form-control" id="inputLastName" placeholder="last" name="last_name">
             </div>
         </div>
         <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 form-control-label">Email</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail" placeholder="email">
+                <input type="email" class="form-control" id="inputEmail" placeholder="email" name="email">
             </div>
         </div>
         <div class="form-group row">
             <label for="inputPhone" class="col-sm-2 form-control-label">Phone</label>
-            <div class="col-sm-10">
-                <input type="tel" class="form-control" id="inputPhone" placeholder="phone">
+            <div class="col-sm-8">
+                <input type="tel" class="form-control" id="inputPhone" placeholder="phone" name="phone">
+            </div>
+            <div class="col-sm-2">
+                <select class="form-control" id="inputPhoneType" name="phone_type">
+                    <option>MOBILE</option>
+                    <option>HOME</option>
+                    <option>WORK</option>
+                    <option>FAX</option>
+                    <option>PAGER</option>
+                    <option>OTHER</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputStreet" class="col-sm-2 form-control-label">Street</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputStreet" placeholder="123 main st">
+                <input type="text" class="form-control" id="inputStreet" placeholder="123 main st" name="street">
             </div>
         </div>
         <div class="form-group row">
             <label for="inputCity" class="col-sm-2 form-control-label">City/State/Zip</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputCity" placeholder="austin">
+                <input type="text" class="form-control" id="inputCity" placeholder="austin" name="city">
             </div>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="inputState" placeholder="tx">
+                <select class="form-control" id="inputState" name="state">
+                    <option>TX</option>
+                    <option>AL</option>
+                    <option>AK</option>
+                    <option>AZ</option>
+                    <option>AR</option>
+                    <option>CA</option>
+                    <option>CO</option>
+                    <option>CT</option>
+                    <option>DE</option>
+                    <option>DC</option>
+                    <option>FL</option>
+                    <option>GA</option>
+                    <option>HI</option>
+                    <option>ID</option>
+                    <option>IL</option>
+                    <option>IN</option>
+                    <option>IA</option>
+                    <option>KS</option>
+                    <option>KY</option>
+                    <option>LA</option>
+                    <option>ME</option>
+                    <option>MD</option>
+                    <option>MA</option>
+                    <option>MI</option>
+                    <option>MN</option>
+                    <option>MS</option>
+                    <option>MO</option>
+                    <option>MT</option>
+                    <option>NE</option>
+                    <option>NV</option>
+                    <option>NH</option>
+                    <option>NJ</option>
+                    <option>NM</option>
+                    <option>NY</option>
+                    <option>NC</option>
+                    <option>ND</option>
+                    <option>OH</option>
+                    <option>OK</option>
+                    <option>OR</option>
+                    <option>PA</option>
+                    <option>PR</option>
+                    <option>RI</option>
+                    <option>SC</option>
+                    <option>SD</option>
+                    <option>TN</option>
+                    <option>UT</option>
+                    <option>VT</option>
+                    <option>VA</option>
+                    <option>WA</option>
+                    <option>WV</option>
+                    <option>WI</option>
+                    <option>WY</option>
+                </select>
             </div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputZipcode" placeholder="77777-7777">
+                <input type="text" class="form-control" id="inputZipcode" placeholder="77777-7777" name="zipcode">
             </div>
         </div>
         <div class="text-center" style="margin-top:2.5em;">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-default">Cancel</button>
+            <button ng-click="submit()" type="submit" class="btn btn-primary" id="submit" value="submit">SUBMIT</button>
+            <input ng-click="reset()" type="reset" class="btn btn-default" id="reset" value="cancel"/>
+        </div>
+        <div class="text-left" stype="margin-top:2.5em;">
+            <label class="alert">{{ successMsg }}</label>
         </div>
     </form>
 </div>

@@ -5,20 +5,18 @@
 var User = require('./models/user');
 
 var express = require('express');
-/*var jwt = require('express-jwt');
+var jwt = require('express-jwt');
 
-var jwtCheck = jwt({
+/*var jwtCheck = jwt({
   secret: new Buffer('nvC5GxMy28oxaQO9JmxIsRgLBJdaDs5GjdcyI0PzzmaaZKtqnANgnWUylk9JSG9q', 'base64'),
   audience: 'fxrksgu1aOqhoN0SqGLMZyAG3fFuPMNM'
 });*/
 
 	module.exports = function(app) {
 		// server routes ===========================================================
-		app.use(function(req, res, next) {
-			//console.log('Something is happening.');
-			next();
-		});
-
+        app.use(function(req, res, next) {
+            next();
+        });
 		// handle things like api calls
 		// authentication routes
 
@@ -36,7 +34,7 @@ var jwtCheck = jwt({
 		});
 
 		// posts go here ============================================
-        app.post('/api/user', function(req, res) {
+        app.post('/api/user', function(req, res, next) {
             var user_id = req.body.user_id,
                 first_name = req.body.first_name,
                 middle_initial = req.body.middle_initial,
@@ -50,6 +48,8 @@ var jwtCheck = jwt({
                 city = req.body.city,
                 state = req.body.state,
                 zipcode = req.body.zipcode;
+            
+            console.log("first_name: " + first_name);
             
             var myUser      = new User({
                 userId: user_id,
@@ -79,6 +79,7 @@ var jwtCheck = jwt({
                 if (err)
                     res.send(err);
                 res.json({ message: 'User created!' });
+                res.end();
             });
         });
 
@@ -126,4 +127,3 @@ var jwtCheck = jwt({
 			res.sendfile('./public/index.html'); // load our public/index.html file
 		});
 	};
-
