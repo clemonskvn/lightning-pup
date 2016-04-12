@@ -16,6 +16,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/profile', {
             templateUrl: 'views/userdetails.html',
             controller: 'UserDetailController'
+        })
+        
+        .when('/test', {
+            templateUrl: 'views/test.html',
+            controller: 'TestController'
         });
 	$locationProvider.html5Mode(true);
 }]);

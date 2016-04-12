@@ -111,7 +111,7 @@ var userModel   = new Schema({
         index: true,
         required: [true, 'User ID is required.']
     },
-    userName    : [userName],
+    name        : [userName],
     email       : [email],
     phone       : [phone],
     address     : [addrModel],

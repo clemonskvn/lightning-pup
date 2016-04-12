@@ -3,6 +3,7 @@
 // grab the nerd model we just created
 //var Premise = require('./models/premise');
 var User = require('./models/user');
+var Test = require('./models/test');
 
 var express = require('express');
 var jwt = require('express-jwt');
@@ -14,11 +15,16 @@ var jwt = require('express-jwt');
 
 	module.exports = function(app) {
 		// server routes ===========================================================
-        app.use(function(req, res, next) {
-            next();
-        });
+        //app.use(function(req, res, next) {
+        //    next();
+        //});
 		// handle things like api calls
 		// authentication routes
+        
+        //app.use(function(err, req, res, next) {
+        //    console.error(err);
+        //    res.status(500).send({status:500, message: 'internal error'});
+        //});
 
 		// gets go here ===========================================
 		app.get('/api', function(req, res) {
@@ -32,6 +38,22 @@ var jwt = require('express-jwt');
 				res.json(myUser);
 			});
 		});
+        
+        app.get('/api/user', function(req, res) {
+			User.find({}, function(err, myUser) {
+				if (err)
+					res.send(err);
+				res.json(myUser);
+			});
+		});
+        
+        app.get('/api/test', function(req, res) {
+            Test.find({}, function(err, myTest) {
+                if (err)
+                    res.send(err);
+                res.json(myTest);
+            });
+        });
 
 		// posts go here ============================================
         app.post('/api/user', function(req, res, next) {
@@ -43,30 +65,32 @@ var jwt = require('express-jwt');
                 email_type = 'PRIMARY',
                 user_type = 'PRIMARY',
                 phone_type = req.body.phone_type,
-                phone = req.body.tel_number,
+                phone = req.body.phone,
                 street = req.body.street,
                 city = req.body.city,
                 state = req.body.state,
                 zipcode = req.body.zipcode;
             
-            console.log("first_name: " + first_name);
-            
             var myUser      = new User({
                 userId: user_id,
-                userName: {
+                name: [{
                     firstName: first_name,
                     middleInitial: middle_initial,
                     lastName: last_name,
                     type: user_type
-                },
-                email: {
+                }],
+                email: [{
                     type: email_type,
                     emailAddress: email
-                },
-                phone: {
+                }],
+                phone: [{
                     type: phone_type,
                     telNumber: phone
-                },
+                }]
+            });
+            
+            /*
+            myUser.push({
                 address: {
                     street: street,
                     city: city,
@@ -74,15 +98,26 @@ var jwt = require('express-jwt');
                     zipcode: zipcode
                 }
             });
-            
+            */
             myUser.save(function(err) {
-                if (err)
-                    res.send(err);
+                if (err) {
+                    return res.json(err.stack);
+                }
                 res.json({ message: 'User created!' });
-                res.end();
             });
         });
 
+        app.post('/api/test', function(req, res) {
+            console.log('req.body: ' + req.body);
+            console.log('req.body.input_text: ' + req.body.input_text);
+            var myTest = new Test({ myText: req.body.input_text });
+            myTest.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'Test created!' });
+            })
+        });
+        
 		// puts go here =============================================
 /*		app.put('/api/bears/:bear_id', function(req, res) {
 			Bear.findById(req.params.bear_id, function(err, bear) {

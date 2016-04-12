@@ -37,6 +37,11 @@ app.use(express.static(__dirname + '/public'));
 // routes =================================================
 require('./app/routes')(app); // configure our routes
 
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.send(500);
+})
+
 // start app ==============================================
 // startup our app at http://localhost:8080
 app.listen(port);

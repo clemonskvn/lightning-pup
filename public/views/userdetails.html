@@ -1,55 +1,75 @@
 <!-- public/views/userdetails.html -->
 <div class="text-left" style="padding:2em;">
 	<h1>My Profile</h1>
-	<form id="newUserForm" action="/api/user" method="post" enctype="application/x-www-form-urlencoded">
+	<form ng-submit="submit(formData)" id="newUserForm" enctype="application/x-www-form-urlencoded">
+        <div class="form-group row">
+            <label for="inputerUsername" class="col-sm-2 form-control-label">Username</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputerUsername" placeholder="username" name="user_id" ng-model="formData.user_id" required autofocus>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputerPassword" class="col-sm-2 form-control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputePassword" name="password" ng-model="formData.password" required>
+                
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputerPassword" class="col-sm-2 form-control-label">Repeat Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="validatePassword" name="validate_password" ng-model="formData.validate_password" required>
+            </div>
+        </div>
+        
         <div class="form-group row">
             <label for="inputName" class="col-sm-2 form-control-label">Name</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="first_name" placeholder="first" name="first_name">
+                <input type="text" class="form-control" id="first_name" placeholder="first" name="first_name" ng-model="formData.first_name" pattern="/^[a-z][a-z ,.'-]*$/i" required>
             </div>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="inputMiddleInitial" name="middle_initial">
+                <input type="text" class="form-control" id="inputMiddleInitial" name="middle_initial" ng-model="formData.middle_initial" maxlength="1" patter="/[a-z]/i">
             </div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputLastName" placeholder="last" name="last_name">
+                <input type="text" class="form-control" id="inputLastName" placeholder="last" name="last_name" ng-model="formData.last_name" pattern="/^[a-z][a-z ,.'-]*$/i" required>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 form-control-label">Email</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail" placeholder="email" name="email">
+                <input type="email" class="form-control" id="inputEmail" placeholder="email" name="email" ng-model="formData.email" required>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputPhone" class="col-sm-2 form-control-label">Phone</label>
             <div class="col-sm-8">
-                <input type="tel" class="form-control" id="inputPhone" placeholder="phone" name="phone">
+                <input type="tel" class="form-control" id="inputPhone" placeholder="phone" name="phone" ng-model="formData.phone" required>
             </div>
             <div class="col-sm-2">
-                <select class="form-control" id="inputPhoneType" name="phone_type">
-                    <option>MOBILE</option>
-                    <option>HOME</option>
-                    <option>WORK</option>
-                    <option>FAX</option>
-                    <option>PAGER</option>
-                    <option>OTHER</option>
+                <select class="form-control" id="inputPhoneType" name="phone_type" ng-model="formData.phone_type" required>
+                    <option value="MOBILE" selected>MOBILE</option>
+                    <option value="HOME">HOME</option>
+                    <option value="WORK">WORK</option>
+                    <option value="FAX">FAX</option>
+                    <option value="PAGER">PAGER</option>
+                    <option value="OTHER">OTHER</option>
                 </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputStreet" class="col-sm-2 form-control-label">Street</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputStreet" placeholder="123 main st" name="street">
+                <input type="text" class="form-control" id="inputStreet" placeholder="123 main st" name="street" ng-model="formData.street" required>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputCity" class="col-sm-2 form-control-label">City/State/Zip</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputCity" placeholder="austin" name="city">
+                <input type="text" class="form-control" id="inputCity" placeholder="austin" name="city" ng-model="formData.city" required>
             </div>
             <div class="col-sm-2">
-                <select class="form-control" id="inputState" name="state">
-                    <option>TX</option>
+                <select class="form-control" id="inputState" name="state" ng-model="formData.state" required>
+                    <option selected>TX</option>
                     <option>AL</option>
                     <option>AK</option>
                     <option>AZ</option>
@@ -104,15 +124,15 @@
                 </select>
             </div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputZipcode" placeholder="77777-7777" name="zipcode">
+                <input type="text" class="form-control" id="inputZipcode" placeholder="77777-7777" name="zipcode" ng-model="formData.zipcode" required>
             </div>
         </div>
         <div class="text-center" style="margin-top:2.5em;">
-            <button ng-click="submit()" type="submit" class="btn btn-primary" id="submit" value="submit">SUBMIT</button>
+            <button type="submit" class="btn btn-primary" id="submit">SUBMIT</button>
             <input ng-click="reset()" type="reset" class="btn btn-default" id="reset" value="cancel"/>
         </div>
         <div class="text-left" stype="margin-top:2.5em;">
-            <label class="alert">{{ successMsg }}</label>
+            <label class="alert">{{ message }}</label>
         </div>
     </form>
 </div>
