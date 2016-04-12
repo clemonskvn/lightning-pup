@@ -7,7 +7,8 @@
     "animate.css": "latest",
     "angular": "latest",
     "angular-route": "latest",
-    "auth0-angular": "latest"
+    "auth0-angular": "latest",
+    "validator": "latest"
   },
   "authors": [
     "Kevin Clemons <clemonskvn@gmail.com>"

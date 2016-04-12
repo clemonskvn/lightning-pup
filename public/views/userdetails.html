@@ -1,30 +1,29 @@
 <!-- public/views/userdetails.html -->
 <div class="text-left" style="padding:2em;">
 	<h1>My Profile</h1>
-	<form ng-submit="submit(formData)" id="newUserForm" enctype="application/x-www-form-urlencoded">
-        <div class="form-group row">
+	<form data-toggle="validator" enctype="application/x-www-form-urlencoded" role="form">
+        <div class="row">
             <label for="inputerUsername" class="col-sm-2 form-control-label">Username</label>
-            <div class="col-sm-10">
+            <div class="form-group col-sm-10">
                 <input type="text" class="form-control" id="inputerUsername" placeholder="username" name="user_id" ng-model="formData.user_id" required autofocus>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputerPassword" class="col-sm-2 form-control-label">Password</label>
-            <div class="col-sm-10">
+            <div class="col-sm-10 form-group">
                 <input type="password" class="form-control" id="inputePassword" name="password" ng-model="formData.password" required>
-                
             </div>
         </div>
         <div class="form-group row">
             <label for="inputerPassword" class="col-sm-2 form-control-label">Repeat Password</label>
-            <div class="col-sm-10">
+            <div class="col-sm-10 form-group">
                 <input type="password" class="form-control" id="validatePassword" name="validate_password" ng-model="formData.validate_password" required>
             </div>
         </div>
         
         <div class="form-group row">
             <label for="inputName" class="col-sm-2 form-control-label">Name</label>
-            <div class="col-sm-4">
+            <div class="col-sm-4 form-group">
                 <input type="text" class="form-control" id="first_name" placeholder="first" name="first_name" ng-model="formData.first_name" pattern="/^[a-z][a-z ,.'-]*$/i" required>
             </div>
             <div class="col-sm-2">
@@ -127,8 +126,8 @@
                 <input type="text" class="form-control" id="inputZipcode" placeholder="77777-7777" name="zipcode" ng-model="formData.zipcode" required>
             </div>
         </div>
-        <div class="text-center" style="margin-top:2.5em;">
-            <button type="submit" class="btn btn-primary" id="submit">SUBMIT</button>
+        <div class="text-center form-group" style="margin-top:2.5em;">
+            <button ng-click="submit(formData)" type="submit" class="btn btn-primary" id="submit">SUBMIT</button>
             <input ng-click="reset()" type="reset" class="btn btn-default" id="reset" value="cancel"/>
         </div>
         <div class="text-left" stype="margin-top:2.5em;">
