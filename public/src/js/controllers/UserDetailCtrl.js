@@ -9,8 +9,13 @@ angular.module('UserDetailCtrl', []).controller('UserDetailController', ['$scope
     
     $scope.submit = function(data) {
         UserDetail.create(data).then(function(msg) {
-                $scope.message = msg;
-                //$window.location.href='/profile';
+            console.log("test");
+            $scope.message = msg;
+            //$window.location.href='/profile';
         });
+    };
+    
+    $scope.checkValidity = function(username) {
+        return UserDetal.checkValidity(username);
     };
 }]);

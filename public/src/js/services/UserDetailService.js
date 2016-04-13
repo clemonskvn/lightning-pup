@@ -11,6 +11,10 @@ angular.module('UserDetailService', []).factory('UserDetail', ['$http', function
         
         delete : function(id) {
             return $http.delete('/api/user/' + id);
+        },
+        
+        checkValidity : function(username) {
+            return $http.get('/api/user/' + username);
         }
     };
 }]);

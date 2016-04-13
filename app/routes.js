@@ -32,7 +32,7 @@ var jwt = require('express-jwt');
 		});
         
         app.get('/api/user/:user_id', function(req, res) {
-			User.findById(req.params.user_id, function(err, myUser) {
+			User.findOne({ userId: req.params.user_id }, 'userId', function(err, myUser) {
 				if (err)
 					res.send(err);
 				res.json(myUser);

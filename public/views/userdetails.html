@@ -4,8 +4,11 @@
 	<form class="css-form" enctype="application/x-www-form-urlencoded" name="newUserForm" novalidate role="form">
         <div class="row">
             <label for="inputerUsername" class="col-sm-2 form-control-label">Username</label>
-            <div class="form-group col-sm-10">
-                <input type="text" class="form-control" id="inputerUsername" placeholder="username" name="user_id" ng-model="formData.user_id" required>
+            <div class="form-group col-sm-9">
+                <input type="text" class="form-control" id="inputerUsername" placeholder="username" name="user_id" ng-model="formData.user_id" ng-model-options="{ updateOn: 'blur' }" lp-test />
+            </div>
+            <div class="form-group col-sm-1">
+                <p ng-show="newUserForm.user_id.$pending">Validating user name...</p>
             </div>
         </div>
         <div class="form-group row">
