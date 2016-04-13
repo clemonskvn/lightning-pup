@@ -1,13 +1,12 @@
 <!-- public/views/test.html -->
-<div class="text-left" style="padding:2em;">
-	<h1>TEST</h1>
-	<form data-toggle="validator" role="form" id="myform">
-        <div class="form-group">
-            <label for="inputName" class="control-label">Name</label>
-            <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">SUBMIT</button>
-        </div>
-    </form>
-</div>
+<form name="form" class="css-form" novalidate>
+    <div class="form-group">
+        <label for="inputEmail" class="control-label">Email</label>
+        <input type="email" ng-model="myEmail" class="form-control" id="inputEmail" lp-validate-email name="testEmail" required /><br>
+        <span ng-show="form.testEmail.$error.email">This email format is invalid!</span><br>
+        Model: {{ myEmail }}
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">SUBMIT</button>
+    </div>
+</form>

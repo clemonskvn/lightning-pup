@@ -2,3 +2,12 @@
 body {
   background: #FFFFFF;
 }
+.css-form input.ng-invalid.ng-touched {
+  background-color: #FA787E;
+  font-weight: bold;
+  color: darkred;
+}
+.css-form input.ng-valid.ng-touched {
+  background-color: aliceblue;
+  font-weight: normal;
+}

@@ -1,8 +1,6 @@
 // public/js/controllers/TestCtrl.js
 angular.module('TestCtrl', []).controller('TestController', ['$scope', 'Test', '$window', function($scope, Test, $window) {
     
-    $('#myform').validator();
-    
     $scope.formData = {};
     
     Test.get().then(function(testlist) {

@@ -8,7 +8,7 @@
     "angular": "latest",
     "angular-route": "latest",
     "auth0-angular": "latest",
-    "validator": "latest"
+    "bootstrap-validator": "https://github.com/1000hz/bootstrap-validator.git#^0.10.2"
   },
   "authors": [
     "Kevin Clemons <clemonskvn@gmail.com>"
