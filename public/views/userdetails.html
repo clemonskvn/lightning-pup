@@ -1,62 +1,192 @@
 <!-- public/views/userdetails.html -->
 <div class="text-left" style="padding:2em;">
 	<h1>My Profile</h1>
-	<form class="css-form" enctype="application/x-www-form-urlencoded" name="newUserForm" novalidate role="form">
+	<form class="css-form"
+          enctype="application/x-www-form-urlencoded"
+          name="newUserForm"
+          novalidate
+          role="form">
         <div class="row">
-            <label for="inputerUsername" class="col-sm-2 form-control-label">Username</label>
-            <div class="form-group col-sm-5">
-                <input type="text" class="form-control" id="inputerUsername" placeholder="username" name="user_id" ng-model-options="{ updateOn: 'blur' }" ng-model="formData.user_id" lp-validate-unique-username lp-validate-username/>
+            <label for="inputerUsername"
+                   class="col-sm-2 form-control-label">
+                Username
+            </label>
+            <div class="form-group col-sm-3">
+                <input type="text"
+                       class="form-control"
+                       id="inputerUsername"
+                       placeholder="username"
+                       name="username"
+                       ng-model="formData.user_id"
+                       ng-model-options="{ debounce: 500 }"
+                       maxlength="50"
+                       lp-validate-unique-username
+                       lp-validate-username
+                       required />
             </div>
-            <div class="form-group col-sm-5">
-                <p ng-if="newUserForm.user_id.$pending">Validating user name...</p>
-                <span >Duplicate Username</span>
+            <div class="form-group col-sm-7">
+                <span ng-if="newUserForm.username.$pending">
+                    Validating user name...
+                </span>
+                <span class="input-error"
+                      ng-if="newUserForm.username.$error.usernameExists">
+                    Duplicate username, please try a different one.
+                </span>
+                <span class="input-error"
+                      ng-if="newUserForm.username.$error.usernameInvalidFormat">
+                    Username format is invalid.
+                </span>
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputerPassword" class="col-sm-2 form-control-label">Password</label>
-            <div class="col-sm-10 form-group">
-                <input type="password" class="form-control" id="inputePassword" name="password" ng-model="formData.password" required>
+            <label for="inputPassword"
+                   class="col-sm-2 form-control-label">
+                Password
+            </label>
+            <div class="col-sm-3">
+                <input type="password"
+                       class="form-control"
+                       id="inputPassword"
+                       name="password"
+                       ng-model="formData.password"
+                       ng-model-options="{ debounce: 500 }"
+                       maxlength="50"
+                       lp-validate-password
+                       required />
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputerPassword" class="col-sm-2 form-control-label">Repeat Password</label>
-            <div class="col-sm-10 form-group">
-                <input type="password" class="form-control" id="validatePassword" name="validate_password" ng-model="formData.validate_password" required>
-            </div>
-        </div>
-        
-        <div class="form-group row">
-            <label for="inputName" class="col-sm-2 form-control-label">Name</label>
-            <div class="col-sm-4 form-group">
-                <input type="text" class="form-control" id="first_name" placeholder="first" name="first_name" ng-model="formData.first_name" lp-validate-name required>
+            <label for="validatePassword"
+                   class="col-sm-2 form-control-label">
+                Re-enter Password
+            </label>
+            <div class="col-sm-3">
+                <input type="password"
+                       class="form-control"
+                       id="validatePassword"
+                       name="validate_password"
+                       ng-model="formData.validate_password"
+                       ng-blur="checkPassword()"
+                       maxlength="50"
+                       required />
             </div>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="inputMiddleInitial" name="middle_initial" ng-model="formData.middle_initial" maxlength="1" lp-validate-name>
-            </div>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputLastName" placeholder="last" name="last_name" ng-model="formData.last_name" lp-validate-name required>
+                <span class="input-error"
+                      ng-if="newUserForm.password.$error.passwordInvalidLength">
+                    Password needs to be at least 8 characters.
+                </span>
+                <span class="input-error"
+                      ng-if="newUserForm.password.$error.passwordInvalidUpper">
+                    Password needs to have at least 1 uppercase letter.
+                </span>
+                <span class="input-error"
+                      ng-if="newUserForm.password.$error.passwordInvalidLower">
+                    Password needs to have at least 1 lowercase letter.
+                </span>
+                <span class="input-error"
+                      ng-if="newUserForm.password.$error.passwordInvalidNumeric">
+                    Password needs to have at least 1 numeric character.
+                </span>
+                <span class="input-error"
+                      ng-if="newUserForm.password.$error.passwordInvalidNonalpha">
+                    Password needs to have at least 1 special character.
+                </span>
+                <span class="input-error"
+                      ng-if="newUserForm.validate_password.$error.mismatchPassword">
+                    Passwords need to match.
+                </span>
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputEmail" class="col-sm-2 form-control-label">Email</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail" placeholder="email" name="email" ng-model="formData.email" lp-validate-email required>
+            <label for="inputName"
+                   class="col-sm-2 form-control-label">
+                Name
+            </label>
+            <div class="col-sm-3 form-group">
+                <input type="text"
+                       class="form-control"
+                       id="first_name"
+                       placeholder="first"
+                       name="first_name"
+                       ng-model="formData.first_name"
+                       ng-model-options="{ debounce: 500 }"
+                       maxlength="50"
+                       lp-validate-name
+                       required>
+            </div>
+            <div class="col-sm-2">
+                <input type="text"
+                       class="form-control"
+                       id="inputMiddleInitial"
+                       placeholder="m"
+                       name="middle_initial"
+                       ng-model="formData.middle_initial"
+                       ng-model-options="{ debounce: 500 }"
+                       maxlength="1"
+                       lp-validate-name>
+            </div>
+            <div class="col-sm-3">
+                <input type="text"
+                       class="form-control"
+                       id="inputLastName"
+                       placeholder="last"
+                       name="last_name"
+                       ng-model="formData.last_name"
+                       ng-model-options="{ debounce: 500 }"
+                       maxlength="50"
+                       lp-validate-name
+                       required>
+            </div>
+            <div class="col-sm-2">
+                <span class="input-error"
+                      ng-if="newUserForm.first_name.$error.nameInvalidFormat ||
+                             newUserForm.middle_initial.$error.nameInvalidFormat ||
+                             newUserForm.last_name.$error.nameInvalidFormat">
+                    Name format is invalid.
+                </span>
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputPhone" class="col-sm-2 form-control-label">Phone</label>
-            <div class="col-sm-8">
+            <label for="inputEmail"
+                   class="col-sm-2 form-control-label">
+                Email
+            </label>
+            <div class="col-sm-5">
+                <input type="email"
+                       class="form-control"
+                       id="inputEmail"
+                       placeholder="email"
+                       name="email"
+                       ng-model="formData.email"
+                       ng-model-options="{ debounce: 500 }"
+                       maxlength="254"
+                       lp-validate-email
+                       required>
+            </div>
+            <div class="col-sm-5">
+                <span class="input-error"
+                      ng-if="newUserForm.email.$error.emailInvalidFormat">
+                    Email format is invalid.
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPhone"
+                   class="col-sm-2 form-control-label">
+                Phone
+            </label>
+            <div class="col-sm-2">
+                <select class="form-control"
+                        id="inputPhoneType"
+                        name="phone_type"
+                        ng-model="formData.phone_type"
+                        required
+                        ng-options="phoneTypeOption as phoneTypeOption.label for phoneTypeOption in phoneTypeOptions track by phoneTypeOption.id">
+                </select>
+            </div>
+            <div class="col-sm-3">
                 <input type="tel" class="form-control" id="inputPhone" placeholder="phone" name="phone" ng-model="formData.phone" required>
             </div>
-            <div class="col-sm-2">
-                <select class="form-control" id="inputPhoneType" name="phone_type" ng-model="formData.phone_type" required>
-                    <option value="MOBILE" selected>MOBILE</option>
-                    <option value="HOME">HOME</option>
-                    <option value="WORK">WORK</option>
-                    <option value="FAX">FAX</option>
-                    <option value="PAGER">PAGER</option>
-                    <option value="OTHER">OTHER</option>
-                </select>
+            <div class="col-sm-5">
+                <span class="input-error" ng-if="newUserForm.validate_password.$error.mismatchPassword">Passwords need to match</span>
             </div>
         </div>
         <div class="form-group row">

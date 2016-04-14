@@ -1,1 +1,1 @@
-body{background:#FFF}.css-form input.ng-invalid.ng-touched{background-color:#FA787E;font-weight:700;color:#8b0000}.css-form input.ng-valid.ng-touched{background-color:#f0f8ff;font-weight:400}
+body{background:#FFF}.css-form input.ng-invalid.ng-touched{border-color:#FA787E}.css-form input.ng-valid.ng-touched{border-color:#000}.css-form input.ng-focus{border-color:#00008b}.input-error{color:#FA787E;padding:0;margin:0;font-size:smaller}

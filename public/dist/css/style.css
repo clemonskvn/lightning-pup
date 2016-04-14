@@ -3,11 +3,17 @@ body {
   background: #FFFFFF;
 }
 .css-form input.ng-invalid.ng-touched {
-  background-color: #FA787E;
-  font-weight: bold;
-  color: darkred;
+  border-color: #FA787E;
 }
 .css-form input.ng-valid.ng-touched {
-  background-color: aliceblue;
-  font-weight: normal;
+  border-color: black;
+}
+.css-form input.ng-focus {
+  border-color: darkblue;
+}
+.input-error {
+  color: #FA787E;
+  padding: 0;
+  margin: 0;
+  font-size: smaller;
 }
