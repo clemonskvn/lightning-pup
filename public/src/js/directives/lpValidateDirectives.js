@@ -17,17 +17,19 @@ angular.module('lpValidateDirectives', [])
         };
     })
 
-    .directive('lpTest', ['$q', 'UserDetail', function($q, UserDetail) {
+    .directive('lpValidateUniqueUsername', ['$q', 'UserDetail', function($q, UserDetail) {
         return {
             restrict: 'A',
             require: 'ngModel',
             link: function(scope, elm, attrs, ctrl) {
                 ctrl.$asyncValidators.username = function (modelValue, viewValue) {
                     return $q(function (resolve, reject) {
-                        UserDetail.checkValidity(viewValue).then(function() {
-                            resolve();
-                        }, function() {
-                            reject();
+                        UserDetail.checkValidity(viewValue).then(function(data) {
+                            console.log("data: " + data.data);
+                            if(data.data === null)
+                                resolve();
+                            else
+                                reject(data.data.errorMessage);
                         });
                     });
                 };
