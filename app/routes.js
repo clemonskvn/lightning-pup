@@ -64,7 +64,7 @@ var jwt = require('express-jwt');
                 email = req.body.email,
                 email_type = 'PRIMARY',
                 user_type = 'PRIMARY',
-                phone_type = req.body.phone_type,
+                phone_type = req.body.phone_type.label,
                 phone = req.body.phone,
                 street = req.body.street,
                 city = req.body.city,
@@ -86,19 +86,14 @@ var jwt = require('express-jwt');
                 phone: [{
                     type: phone_type,
                     telNumber: phone
-                }]
-            });
-            
-            /*
-            myUser.push({
-                address: {
+                }],
+                address: [{
                     street: street,
                     city: city,
                     state: state,
                     zipcode: zipcode
-                }
+                }]
             });
-            */
             myUser.save(function(err) {
                 if (err) {
                     return res.json(err.stack);

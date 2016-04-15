@@ -97,7 +97,7 @@ var phone   = new Schema({
     },
     telNumber       : {
         type: String,
-        match: [/\d{3}-\d{3}-\d{4}/, '{VALUE} is not a valid phone number.'],
+        match: [/\d{10}/, '{VALUE} is not a valid phone number.'],
         required: [true, 'User phone number is required.']
     }
 }, { _id: false });

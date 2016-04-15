@@ -11,7 +11,7 @@ body {
 .css-form input.ng-focus {
   border-color: darkblue;
 }
-.input-error {
+.css-form .input-error {
   color: #FA787E;
   padding: 0;
   margin: 0;

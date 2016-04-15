@@ -6,12 +6,12 @@
           name="newUserForm"
           novalidate
           role="form">
-        <div class="row">
+        <div class="form-group row">
             <label for="inputerUsername"
                    class="col-sm-2 form-control-label">
                 Username
             </label>
-            <div class="form-group col-sm-3">
+            <div class="col-sm-3">
                 <input type="text"
                        class="form-control"
                        id="inputerUsername"
@@ -24,7 +24,7 @@
                        lp-validate-username
                        required />
             </div>
-            <div class="form-group col-sm-7">
+            <div class="col-sm-7">
                 <span ng-if="newUserForm.username.$pending">
                     Validating user name...
                 </span>
@@ -100,7 +100,7 @@
                    class="col-sm-2 form-control-label">
                 Name
             </label>
-            <div class="col-sm-3 form-group">
+            <div class="col-sm-3">
                 <input type="text"
                        class="form-control"
                        id="first_name"
@@ -183,16 +183,41 @@
                 </select>
             </div>
             <div class="col-sm-3">
-                <input type="tel" class="form-control" id="inputPhone" placeholder="phone" name="phone" ng-model="formData.phone" required>
+                <input type="tel"
+                       class="form-control"
+                       id="inputPhone"
+                       placeholder="phone"
+                       name="phone"
+                       ng-model="formData.phone"
+                       lp-validate-phone
+                       required>
             </div>
             <div class="col-sm-5">
-                <span class="input-error" ng-if="newUserForm.validate_password.$error.mismatchPassword">Passwords need to match</span>
+                <span class="input-error"
+                      ng-if="newUserForm.phone.$error.phoneInvalidFormat">
+                    Phone format is invalid.
+                </span>
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputStreet" class="col-sm-2 form-control-label">Street</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputStreet" placeholder="123 main st" name="street" ng-model="formData.street" required>
+            <label for="inputStreet"
+                   class="col-sm-2 form-control-label">
+                Street
+            </label>
+            <div class="col-sm-8">
+                <input type="text"
+                       class="form-control"
+                       id="inputStreet"
+                       placeholder="123 main st"
+                       name="street"
+                       ng-model="formData.street"
+                       required>
+            </div>
+            <div class="col-sm-2">
+                <span class="input-error"
+                      ng-if="newUserForm.phone.$error.phoneInvalidFormat">
+                    Phone format is invalid.
+                </span>
             </div>
         </div>
         <div class="form-group row">
@@ -201,59 +226,12 @@
                 <input type="text" class="form-control" id="inputCity" placeholder="austin" name="city" ng-model="formData.city" required>
             </div>
             <div class="col-sm-2">
-                <select class="form-control" id="inputState" name="state" ng-model="formData.state" required>
-                    <option selected>TX</option>
-                    <option>AL</option>
-                    <option>AK</option>
-                    <option>AZ</option>
-                    <option>AR</option>
-                    <option>CA</option>
-                    <option>CO</option>
-                    <option>CT</option>
-                    <option>DE</option>
-                    <option>DC</option>
-                    <option>FL</option>
-                    <option>GA</option>
-                    <option>HI</option>
-                    <option>ID</option>
-                    <option>IL</option>
-                    <option>IN</option>
-                    <option>IA</option>
-                    <option>KS</option>
-                    <option>KY</option>
-                    <option>LA</option>
-                    <option>ME</option>
-                    <option>MD</option>
-                    <option>MA</option>
-                    <option>MI</option>
-                    <option>MN</option>
-                    <option>MS</option>
-                    <option>MO</option>
-                    <option>MT</option>
-                    <option>NE</option>
-                    <option>NV</option>
-                    <option>NH</option>
-                    <option>NJ</option>
-                    <option>NM</option>
-                    <option>NY</option>
-                    <option>NC</option>
-                    <option>ND</option>
-                    <option>OH</option>
-                    <option>OK</option>
-                    <option>OR</option>
-                    <option>PA</option>
-                    <option>PR</option>
-                    <option>RI</option>
-                    <option>SC</option>
-                    <option>SD</option>
-                    <option>TN</option>
-                    <option>UT</option>
-                    <option>VT</option>
-                    <option>VA</option>
-                    <option>WA</option>
-                    <option>WV</option>
-                    <option>WI</option>
-                    <option>WY</option>
+                <select class="form-control"
+                        id="inputState"
+                        name="state"
+                        ng-model="formData.state"
+                        required
+                        ng-options="stateOption as stateOption.label for stateOption in stateOptions track by stateOption.id">
                 </select>
             </div>
             <div class="col-sm-4">

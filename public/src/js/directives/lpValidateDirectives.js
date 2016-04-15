@@ -119,4 +119,27 @@ angular.module('lpValidateDirectives', [])
             }
         };
     })
+
+    .directive('lpValidatePhone', function() {
+        var phone_regex = /\d{10}/;    
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function(scope, elm, attrs, ctrl) {
+                ctrl.$validators.lpValidateName = function(modelValue, viewValue) {
+                    var testStr = viewValue.replace(/\-/g, '');
+                    testStr = testStr.replace(/\(/g, '');
+                    testStr = testStr.replace(/\)/g, '');
+                    testStr = testStr.replace(/\+/g, '');
+                    testStr = testStr.replace(/\s/g, '');
+                    if(phone_regex.test(testStr)) {
+                        ctrl.$setValidity("phoneInvalidFormat", true);
+                        return true;
+                    }
+                    ctrl.$setValidity("phoneInvalidFormat", false);
+                    return false;
+                };
+            }
+        };
+    })
 ;
